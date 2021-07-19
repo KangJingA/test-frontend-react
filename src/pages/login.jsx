@@ -1,9 +1,12 @@
 import React from "react";
+import Loginform from "../components/Form/Loginform";
+import "./login.css";
 
 export default function Login() {
   return (
-    <div id="login">
-      Put some code here
+    <div className="login">
+      <img className="icon" src={"/images/speedoc.svg"} alt=""></img>
+      <Loginform />
     </div>
   );
 }

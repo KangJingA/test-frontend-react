@@ -15,5 +15,13 @@ body {
   #root {
     z-index: 0;
     position: relative;
+    --green: #72cbc9;
   }
+}
+
+.button {
+  color: white;
+  background: var(--green);
+  border: none;
+  border-radius: 10px;
 }

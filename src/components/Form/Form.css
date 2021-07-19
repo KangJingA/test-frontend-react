@@ -1,0 +1,44 @@
+.form-login {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+}
+
+.form-input-wrapper {
+  width: 100%;
+}
+
+.form-input-wrapper img {
+  margin: auto 5px;
+  position: absolute;
+  right: 0;
+  height: 2rem;
+  width: 2rem;
+  background-color: none;
+  cursor: pointer;
+}
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.form-input-box {
+  border: 1px solid var(--green);
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-checkbox-container {
+    margin: 1.5rem 0;
+}
+input {
+  padding: 0.5rem;
+}
+
+label {
+  color: #141417;
+}
