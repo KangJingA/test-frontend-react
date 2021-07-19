@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { login } from "../../services/authenticationService";
 import "./Form.css";
 
-const Loginform = () => {
+const Loginform = ({ setLoggedIn }) => {
   const { register, handleSubmit } = useForm();
   const [passwordVisible, setPasswordVisiible] = useState(false);
   // some form of loading state here
@@ -12,7 +12,7 @@ const Loginform = () => {
     console.log(rememberMe);
 
     localStorage.setItem("key", "qOg1IIg9vC5DyC4XCJG7R4HhUnFxmFja8YxXsj2p");
-    
+
     let data = {
       password: "speedocdemo",
       email: "jarvis@speedoc.com",
@@ -21,7 +21,7 @@ const Loginform = () => {
     const res = await login(data);
     console.log(res);
     localStorage.setItem("jwt", res.data.jwt); // store jwt
-
+    setLoggedIn(true);
     //error handling here
   };
 
@@ -80,7 +80,6 @@ const Loginform = () => {
       </div>
 
       <input className="button" type="submit" value="Login" />
-      <i className="fas fa-eye"></i>
     </form>
   );
 };

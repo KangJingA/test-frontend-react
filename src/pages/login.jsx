@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
+import { Redirect } from "react-router-dom"
 import Loginform from "../components/Form/Loginform";
 import "./login.css";
 
 export default function Login() {
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("jwt") ? true: false);
+
+  if (loggedIn) {
+    return <Redirect to={"/"} />;
+  }
   return (
     <div className="login">
       <img className="icon" src={"/images/speedoc.svg"} alt=""></img>
-      <Loginform />
+      <Loginform setLoggedIn={setLoggedIn}/>
     </div>
   );
 }

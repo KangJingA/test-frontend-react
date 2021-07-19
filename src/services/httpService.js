@@ -10,6 +10,7 @@ axios.interceptors.request.use(config => {
   const apikey = localStorage.getItem("key");
   if (jwt) config.headers.common["Authorization"] = jwt;
   if (apikey) config.headers.common["x-api-key"] = apikey;
+  console.log(config);
   return config;
 });
 

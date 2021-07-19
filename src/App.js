@@ -1,11 +1,18 @@
 import React from "react";
 import "./styles/index.scss";
-import Login from "./pages/login";
+import Home from "./pages/home";
+import { Route, Redirect } from "react-router-dom";
 
 function App() {
-  return <div id="app">
-    <Login />
-  </div>;
+  if (!localStorage.getItem("jwt")) {
+    return <Redirect to="/login" />;
+  }
+
+  return (
+    <div id="app">
+      <Home />
+    </div>
+  );
 }
 
 export default App;
