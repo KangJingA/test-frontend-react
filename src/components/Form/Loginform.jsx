@@ -5,24 +5,39 @@ import "./Form.css";
 
 const Loginform = ({ setLoggedIn }) => {
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisiible] = useState(false);
-  // some form of loading state here
+  const [errorMsg, setErrorMsg] = useState("");
 
   const onSubmit = async ({ email, password, secret, rememberMe }) => {
-    console.log(rememberMe);
-
-    localStorage.setItem("key", "qOg1IIg9vC5DyC4XCJG7R4HhUnFxmFja8YxXsj2p");
-
+    setLoading(true);
+    setErrorMsg(false);
+    localStorage.setItem("key", secret);
+  
     let data = {
-      password: "speedocdemo",
-      email: "jarvis@speedoc.com",
-      rememberMe: true
+      password: password,
+      email: email,
+      rememberMe: rememberMe
     };
-    const res = await login(data);
-    console.log(res);
-    localStorage.setItem("jwt", res.data.jwt); // store jwt
-    setLoggedIn(true);
-    //error handling here
+
+    try {
+      const res = await login(data);
+      localStorage.setItem("jwt", res.data.jwt); // store jwt
+      setLoggedIn(true);
+
+      if (rememberMe) {
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+      }
+
+    } catch {
+      console.log("login failed");
+      setErrorMsg(true);
+      localStorage.clear()
+    } finally {
+      setLoading(false);
+    }
+
   };
 
   return (
@@ -30,7 +45,7 @@ const Loginform = ({ setLoggedIn }) => {
       <div className="form-input-container">
         <label>Enter your email address</label>
         <input
-          className="form-input-box"
+          className="form-input box"
           placeholder="Your email address"
           name="email"
           {...register("email", { required: true })}
@@ -39,7 +54,7 @@ const Loginform = ({ setLoggedIn }) => {
       <div className="form-input-container">
         <label>Enter your Speedoc key</label>
         <input
-          className="form-input-box"
+          className="form-input box"
           placeholder="Your secret key"
           name="secret"
           {...register("secret", { required: true })}
@@ -66,7 +81,7 @@ const Loginform = ({ setLoggedIn }) => {
               }}></img>
           )}
           <input
-            className="form-input-box"
+            className="form-input box"
             type={passwordVisible ? "text" : "password"}
             name="password"
             {...register("password", { required: true })}
@@ -75,11 +90,14 @@ const Loginform = ({ setLoggedIn }) => {
       </div>
       <div className="form-checkbox-container">
         <input type="checkbox" name="rememberMe" {...register("rememberMe")} />
-
         <label>Remember me</label>
       </div>
 
-      <input className="button" type="submit" value="Login" />
+      <input className="button" type="submit" value={loading ? "Loading.." : "Login"} />
+
+      <br />
+
+      {errorMsg && <p>You have entered innvalid login credentials</p>}
     </form>
   );
 };

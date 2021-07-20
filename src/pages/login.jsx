@@ -10,7 +10,7 @@ export default function Login() {
     return <Redirect to={"/"} />;
   }
   return (
-    <div className="login">
+    <div className="main">
       <img className="icon" src={"/images/speedoc.svg"} alt=""></img>
       <Loginform setLoggedIn={setLoggedIn}/>
     </div>
